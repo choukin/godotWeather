@@ -1,0 +1,111 @@
+/* pages/searchGeo/searchGeo.wxss */
+.search-container{
+  position: relative;
+}
+.search-box{
+  box-sizing: border-box;
+  display: flex;
+  background:#fff;
+  width:100%;
+  position: relative;
+  align-items: center;
+  font-size: 30rpx;
+  box-shadow: 0 1px 2px -1px #ccc;
+  padding: 10rpx 0rpx;
+  justify-content: space-around;
+}
+.search-box > input {
+  position: relative;
+  border: 1rpx solid #ccc;
+  border-radius: 10rpx;
+  width: calc(100vw - 120rpx);
+  box-sizing: border-box;
+  padding-left: 60rpx;
+  height: 62rpx;
+}
+.search-box input::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 34rpx;
+  height: 34rpx;
+  background-image: url(https://6465-demo-57510e-1257978613.tcb.qcloud.la/miniWeather/images/icon/search_gray.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 50%;
+  left: 10rpx;
+  transform: translateY(-50%);
+}
+
+.search-box .input-placeholder {
+  color: #ccc;
+}
+.search-box text {
+  color: #1aad16;
+}
+
+.city-list{
+  height:calc(100vh - 92rpx);
+  display:flex;
+  flex-direction: column;
+}
+.city-list-title{
+  background-color: #eee;
+  font-size: 30rpx;
+  padding:4rpx 0;
+  padding-left:20rpx;
+}
+
+.guess-list{
+  display: flex;
+  flex-wrap:wrap;
+  font-size: 30rpx;
+  justify-content:space-around;
+  align-items: space-around;
+  margin:10rpx 0;
+  color: #fff;
+} 
+
+.guess-list image{
+  width:28rpx;
+  height:28rpx;
+}
+
+.guess-list > view{
+  width:150rpx;
+  padding:10rpx 0;
+  margin:10rpx 20rpx;
+  background-color: rgba(0, 0, 0, .6);
+  border-radius: 8rpx;
+  text-align: center;
+   box-shadow: 0 0 1rpx 1rpx rgba(0, 0, 0, .4);
+}
+
+.city-list-item{
+  font-size: 30rpx;
+  line-height: 80rpx;
+  border-bottom: 1rpx solid #eee;
+  padding-left:20rpx;
+}
+ 
+
+ .index-bar{
+   position: absolute;
+   right:0;
+   bottom:0;
+   top:88rpx;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   font-size: 30rpx;
+   width:40rpx;
+   padding-top: 52rpx;
+   background-color: rgba(0, 0, 0, .2);
+   z-index: 10;
+ }
+ .index-item{
+   margin-bottom: 4rpx;
+ }
+ .index-item.active{
+   color:#1aad16;
+ }
