@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/searchGeo/searchGeo",    
     "pages/index/index",
+    "pages/searchGeo/searchGeo",    
     "pages/logs/logs"
 
   ],

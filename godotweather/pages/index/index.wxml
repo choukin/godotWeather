@@ -1,15 +1,56 @@
 <!--index.wxml-->
+<view class="bg" style='background-image:url({{bgImgUrl}})'></view>
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<!-- 用户信息 -->
+  <view class='userinfo'>
+    <open-data type="userAvatarUrl" class="userinfo-avatar"></open-data>
+    <text>{{greeting}}</text>
+    <open-data type="userNickName" ></open-data>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+<!-- 实时天气 -->
+  <view class="now">
+    <view class='now-position'>
+      <text></text>
+      <image></image>
+    </view>
+
+    <view class='now-temp'>
+      <text class="now-temp-num"></text>
+      <text>℃</text>
+    </view>
+    <view class='now-cond'>
+      <image src=''></image>
+      <text>{{}}</text>
+    </view>
+
+    <view class='now-items'>
+      <view class="now-items-left">
+        <view>级</view>
+        <view>湿度</view>
+      </view>
+      <view class="now-items-right">
+        <view>大气压</view>
+        <view>降水量</view>
+      </view>      
+    </view>
+
+    <view class='now-time'>
+      <text>更新于</text>
+    </view>
+  
+
+    <view class="hourly-container">
+      <view></view>
+      <swiper>
+         <block>
+         <swiper-item></swiper-item>
+         </block>
+      </swiper>
+    </view>
+    
+
   </view>
+ 
     <view class="usermotto" bindtap="toSearchGeo">
     <text class="user-motto">定位</text>
   </view>

@@ -21,6 +21,7 @@
 
     <!--城市列表-->
     <block wx:for="{{cityList}}" wx:key="{{index}}">
+    <!-- 不是第一个或者和上一个首字母不相等显示当前的首字母 -->
       <block wx:if="{{index === 0 || (cityList[index - 1].inital[0] !== item.inital[0])}}">
           <view class='city-list-title' id="{{'title_' + item.inital[0]}}">{{item.inital[0]}}</view>
       </block>
