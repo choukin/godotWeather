@@ -1,15 +1,39 @@
 /**index.wxss**/
+.bg{
+  height: 100vh;
+  position: fixed;
+  top:0;
+  bottom: 0;
+  right: 0;
+  left:0;
+  z-index: -1;
+  background-color: rosybrown;
+}
+.container {
+  font-size: 32rpx;
+  color:#fff;
+}
 .userinfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  margin-top:40rpx;
+  width:100%;
+  font-size: 36rpx;
+  transition: all 300ms ease;
 }
 
 .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
+  width: 60rpx;
+  height: 60rpx;
   margin: 20rpx;
   border-radius: 50%;
+}
+.userinfo-avatar:after{
+  border: none;
+}
+.userinfo-nickname::after{
+  border:none;
 }
 
 .userinfo-nickname {
@@ -18,4 +42,170 @@
 
 .usermotto {
   margin-top: 200px;
+}
+
+.now{
+  width:100%;
+  margin-top: 20rpx;
+}
+
+.now-position{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40rpx;
+  margin-bottom: 20rpx;
+}
+.now-position image{
+  width:28rpx;
+  height:28rpx;
+}
+
+.now-temp{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.now-temp--num{
+  font-size: 120rpx;
+}
+
+.now-cond{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20rpx;
+  font-size: 40rpx;
+}
+
+.now-cond image{
+  width:60rpx;
+  height:60rpx;
+}
+
+.now-cond text{
+  margin-left: 10rpx;
+}
+
+.now-items{
+ display: flex;
+ justify-content: center;
+ margin-bottom: 20rpx;
+}
+
+.now-items--left,now-items--right{
+  width:50%;
+  box-sizing: border-box;
+}
+.now-items--left > view,
+.now-items--right > view{
+  margin:10rpx 20rpx;
+}
+
+.now-items--left{
+  text-align: right;
+  border-right: 1rpx solid #fff;
+}
+
+.now-time{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  margin-right: 20rpx;
+}
+
+.hourly{
+  padding: 20px 0;
+  height:400rpx;
+}
+
+.hourly-swiper-item{
+  display: flex;
+  justify-content: space-around;
+}
+
+.hourly-swiper-column{
+  margin-bottom: 10rpx;
+}
+.hourly-container,
+.forecast-container,
+.lifestyle-container {
+  text-align: center;
+  background-color: rgba(0, 0, 0, .4);
+}
+.hourly-title,
+.forecast-title,
+.lifestyle-title{
+  width: 100%;
+  padding:20rpx 0;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.forecast{
+  width:100%;
+  padding: 20rpx 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.hourly .forecast-icon,
+.forecast .forecast-icon
+{
+width:60rpx;
+height:60rpx;
+}
+
+.forecast-cloumn{
+  width:30%;
+}
+.forecast-cloumn text{
+  text-align: center;
+  margin-bottom: 10rpx;
+}
+.forecast-cloumn > view{
+text-align: center;
+margin-bottom: 10rpx;
+}
+.lifestyle{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20rpx;
+}
+
+.lifestyle > view{
+  display: flex;
+  margin:20rpx 20rpx 0;
+}
+.lifestyle-item--pic{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 20rpx;
+}
+
+.lifestyle-item--txt{
+  text-align: left;
+}
+
+.lifestyle-item--desc{
+  margin-top: 10rpx;
+  font-size: 26rpx;
+}
+.lifestyle-icon{
+  width:80rpx;
+  height:80rpx;
+}
+.copyright{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 20rpx;
+  border-top: 1rpx solid #ccc;
+  background: rgba(0, 0, 0, .4);
+  padding:20rpx;
+
 }

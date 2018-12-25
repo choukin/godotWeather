@@ -10,6 +10,16 @@ const qqMapWX = new QQMAPWX({
 })
 
 /**
+ * 天气接口公共参数
+ */
+const commonParam = {
+  key: config.key,
+  lang: 'cn',
+  location: 'beijing',
+  unit: 'm' // 单位选择，公制（m）或英制（i）
+}
+
+/**
  * 获取地理位置信息
  */
 const getLocation = ()=> {
