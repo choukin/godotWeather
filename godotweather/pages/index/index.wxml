@@ -4,13 +4,13 @@
 <!-- 用户信息 -->
   <view class='userinfo'>
     <open-data type="userAvatarUrl" class="userinfo-avatar"></open-data>
-    <text>{{greeting}}</text>
+    <text>{{grettings}}! </text>
     <open-data type="userNickName" ></open-data>
   </view>
 <!-- 实时天气 -->
   <view class="now">
     <view class='now-position'>
-      <text></text>
+      <text>{{geoDes}}</text>
       <image></image>
     </view>
 

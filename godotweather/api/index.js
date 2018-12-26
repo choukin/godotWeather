@@ -25,7 +25,7 @@ const commonParam = {
 const getLocation = ()=> {
   return new Promise((resolve, reject) => {
     wx.getLocation({
-      type: '',
+      type: 'gcj02',
       altitude: true,
       success: function (res) { 
         resolve(res)
@@ -34,6 +34,119 @@ const getLocation = ()=> {
         reject(res)
        },
       complete: function (res) { },
+    })
+  })
+}
+
+/**
+ * 逆地址解析
+ * 坐标 解析成 描述
+ */
+const reverseGeocoder = (options) => {
+  return new Promise((resolve, reject) => {
+    // 调用接口
+  qqMapWX.reverseGeocoder({
+    location: {
+      latitude: options.latitude, // 纬度
+      longitude: options.longitude // 经度
+      },
+      success: function (res) {
+        resolve(res.result);
+      },
+      fail: function (res) {
+        reject(res);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+  })
+}
+
+/**
+ * 实时天气
+ */
+const getNowWeather = (options) => {
+  return new Promise((resolve, reject)=>{
+    wx.request({
+      url: config.nowWeatherUrl,
+      methode: 'GET',
+      data:{
+        ...commonParam,
+        ...options
+      },
+      success(res){
+         resolve(res.data) 
+      },
+      fail(err){
+        reject(err)
+      }
+    })
+  })
+}
+
+/**
+ * 逐日天气
+ */
+const getDailyWeather = (options) => {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: config.dailyWeatherUrl,
+      methode: 'GET',
+      data: {
+        ...commonParam,
+        ...options
+      },
+      success(res) {
+        resolve(res.data)
+      },
+      fail(err) {
+        reject(err)
+      }
+    })
+  })
+}
+
+/**
+ * 逐小时天气
+ */
+const getHourlyWeather = (options) => {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: config.hourlyWeatherUrl,
+      methode: 'GET',
+      data: {
+        ...commonParam,
+        ...options
+      },
+      success(res) {
+        resolve(res.data)
+      },
+      fail(err) {
+        reject(err)
+      }
+    })
+  })
+}
+
+/**
+ * 生活指数
+ */
+const getLifestyle = (options) => {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: config.lifestyleUrl,
+      methode: 'GET',
+      data: {
+        ...commonParam,
+        ...options
+      },
+      success(res) {
+        resolve(res.data)
+      },
+      fail(err) {
+        reject(err)
+      }
     })
   })
 }
@@ -113,6 +226,9 @@ const getSuggestion= (options)=>{
 
 module.exports = {
   getLocation,
+  reverseGeocoder,
+  getNowWeather,
+  getLifestyle,
   getCityList,
   getSuggestion
 }

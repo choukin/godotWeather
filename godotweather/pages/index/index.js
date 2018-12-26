@@ -1,13 +1,44 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const config = app.globalData.config
+const api = app.globalData.api
+const loading = app.globalData.loading
+const util = app.globalData.util
+// 支持 async await
+const regeneratorRuntime = require('../../lib/regenerator')
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    grettings: '', // 问候语
+    bgImgUrl: '', // 背景图片
+    location: '', // 地理坐标
+    geoDes: '定位中...', // 地理位置描述
+    nowWeather: { // 实时天气数据
+      tmp: 'N/A', // 温度
+      condTxt: '', // 天气实况
+      winDir: '', // 风向
+      winSpd: '', // 风速
+      pres: '', // 大气压
+      hum: '', // 湿度
+      pcpn: '', // 降雨量
+      condIconUrl: '', // 天气图片
+      loc: '' // 当地时间
+    },
+    days: ['','',''],
+    dailyWeather: [],
+    hourlyWeather: [],
+    lifestyle: []// 生活指数
+
+  },
+  ...loading,
+  onShow() {
+    this.init()
+  },
+  init() {
+    this.loading({ flag: true })
+    this.initGreetings()
+    this.initWeatherInfo()
+    this.loading({ flag: false })
   },
   //事件处理函数
   bindViewTap: function() {
@@ -20,40 +51,53 @@ Page({
       url: '../searchGeo/searchGeo',
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+
+  onPullDownRefresh() {
+    this.init()
+    wx.stopPullDownRefresh()
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+
+  initGreetings(){
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      grettings: util.greetings()
     })
+  },
+  async initWeatherInfo() {
+    await this.getLocation()
+  },
+  async getLocation() {
+    let position = wx.getStorageSync('POSITION')
+    position = position?JSON.parse(position):position
+    if (position) {
+      this.setData({
+        location: `${position.longitude},${position.latitude}`,
+        geoDes: position.title
+      })
+      return
+    }
+
+    await api.getLocation()
+    .then(res=>{
+      let {longitude, latitude} = res
+      this.setData({
+        location: `${longitude},${latitude}`
+      })
+      this.getGeoDes({ longitude,latitude})
+    }).catch(err=>{
+      console.log(err)
+    })
+  },
+  getGeoDes (options) {
+    api.reverseGeocoder(options)
+      .then(res=>{
+        let addressComponent = res.address_component // 地址部件，address不满足需求时可自行拼接
+        let geoDes = `${addressComponent.city}${addressComponent.district}${addressComponent.street_number}`
+        this.setData({
+          geoDes
+        })
+      })
+  },
+  onLoad() {
+   
   }
 })

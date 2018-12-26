@@ -33,7 +33,7 @@ Page({
   },
 
   async init () {
-    await this.loading({ flag:true})
+    this.loading({ flag:true})
     await this.getCityList()
     await this.filterGuess()
     await this.hideLoading()
