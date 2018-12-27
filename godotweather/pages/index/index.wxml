@@ -15,7 +15,7 @@
     </view>
 
     <view class='now-temp'>
-      <text class="now-temp-num"></text>
+      <text class="now-temp-num">{{nowWeather.tmp}}</text>
       <text>℃</text>
     </view>
     <view class='now-cond'>
@@ -24,23 +24,23 @@
     </view>
 
     <view class='now-items'>
-      <view class="now-items-left">
-        <view>级</view>
-        <view>湿度</view>
+      <view class="now-items--left">
+        <view>{{nowWeather.windDir}}{{nowWeather.winSc}}  级</view>
+        <view>湿度 {{nowWeather.hum}}</view>
       </view>
-      <view class="now-items-right">
-        <view>大气压</view>
-        <view>降水量</view>
+      <view class="now-items--right">
+        <view>大气压{{nowWeather.pres}}</view>
+        <view>降水量{{nowWeather.pcpn}}</view>
       </view>      
     </view>
 
     <view class='now-time'>
-      <text>更新于</text>
+      <text>更新于{{nowWeather.loc}}</text>
     </view>
   
 
     <view class="hourly-container">
-      <view></view>
+      <view>逐三小时预报</view>
       <swiper>
          <block>
          <swiper-item></swiper-item>

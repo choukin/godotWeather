@@ -64,6 +64,7 @@ Page({
   },
   async initWeatherInfo() {
     await this.getLocation()
+    await this.getNowWeather()
   },
   async getLocation() {
     let position = wx.getStorageSync('POSITION')
@@ -97,7 +98,34 @@ Page({
         })
       })
   },
+  getNowWeather () {
+    return new Promise((resolve, reject) => {
+      api.getNowWeather({
+        location: this.data.location
+      }).then((res)=>{
+        let data = res.HeWeather6[0]
+        this.formatNowWeather(data)
+      })
+    })
+  },
+  formatNowWeather (data) {
+    this.setData({
+      nowWeather:{
+        parentCity: data.basic.parent_city,
+        location: data.basic.location,
+        tmp: data.now.tmp,
+        condTxt: data.now.cond_txt,
+        windDir: data.now.wind_dir,
+        winSc: data.now.wind_sc,
+        windSped: data.now.wind_spd,
+        pres: data.now.pres,
+        hum: data.now.hum,
+        pcpn: data.now.pcpn,
+        loc: data.update.loc.slice(5).replace(/-/, '/')
+      }
+    })
+  },
   onLoad() {
-   
+ 
   }
 })
