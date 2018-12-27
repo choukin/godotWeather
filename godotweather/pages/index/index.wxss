@@ -95,7 +95,7 @@
  margin-bottom: 20rpx;
 }
 
-.now-items--left,now-items--right{
+.now-items--left,.now-items--right{
   width:50%;
   box-sizing: border-box;
 }
