@@ -229,6 +229,7 @@ module.exports = {
   reverseGeocoder,
   getNowWeather,
   getLifestyle,
+  getDailyWeather,
   getCityList,
   getSuggestion
 }

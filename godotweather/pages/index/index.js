@@ -24,7 +24,7 @@ Page({
       condIconUrl: '', // 天气图片
       loc: '' // 当地时间
     },
-    days: ['','',''],
+    days: ['今天', '明天', '后天'],
     dailyWeather: [],
     hourlyWeather: [],
     lifestyle: []// 生活指数
@@ -63,8 +63,12 @@ Page({
     })
   },
   async initWeatherInfo() {
+    // 获取地址信息
     await this.getLocation()
+    // 获取实时天气
     await this.getNowWeather()
+    // 获取逐日天气
+    await this.getDailyWeather()
   },
   async getLocation() {
     let position = wx.getStorageSync('POSITION')
@@ -88,7 +92,7 @@ Page({
       console.log(err)
     })
   },
-  getGeoDes (options) {
+    getGeoDes (options) {
     api.reverseGeocoder(options)
       .then(res=>{
         let addressComponent = res.address_component // 地址部件，address不满足需求时可自行拼接
@@ -98,13 +102,17 @@ Page({
         })
       })
   },
-  getNowWeather () {
+ getNowWeather () {
     return new Promise((resolve, reject) => {
       api.getNowWeather({
         location: this.data.location
       }).then((res)=>{
         let data = res.HeWeather6[0]
         this.formatNowWeather(data)
+        resolve()
+      })
+      .catch(err=>{
+        reject(err)
       })
     })
   },
@@ -123,6 +131,47 @@ Page({
         pcpn: data.now.pcpn,
         loc: data.update.loc.slice(5).replace(/-/, '/')
       }
+    })
+  },
+  // 获取逐日天气信息
+  getDailyWeather() {
+    return new Promise((resolve,reject) => {
+      api.getDailyWeather({
+        location:this.data.location
+      })
+        .then(res=>{
+          let data = res.HeWeather6[0].daily_forecast
+          this.formatDailyWeather(data)
+          resolve()
+        })
+        .catch(err=>{
+          reject(err)
+        })
+    })
+  },
+  formatDailyWeather(data) {
+    let dailyWeather = data.reduce((pre, cur) => {
+      pre.push({
+        date: cur.date.slice(5).replace(/-/, '/'),
+        condDIconUrl: '',//`${COND_ICON_BASE_URL}/${cur.cond_code_d}.png`, //白天天气状况图标
+        condNIconUrl:'', // `${COND_ICON_BASE_URL}/${cur.cond_code_n}.png`, //晚间天气状况图标
+        condTxtD: cur.cond_txt_d, // 白天天气状况描述
+        condTxtN: cur.cond_txt_n, // 晚间天气状况描述
+        sr: cur.sr, // 日出时间
+        ss: cur.ss, // 日落时间
+        tmpMax: cur.tmp_max, // 最高温度
+        tmpMin: cur.tmp_min, // 最低气温
+        windDir: cur.wind_dir, // 风向
+        windSc: cur.wind_sc, // 风力
+        windSpd: cur.wind_spd, // 风速
+        pres: cur.pres, // 大气压
+        vis: cur.vis // 能见度
+      })
+
+      return pre
+    }, [])
+    this.setData({
+      dailyWeather
     })
   },
   onLoad() {

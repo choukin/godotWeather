@@ -51,16 +51,21 @@
     <view class="forecast-container">
       <view class="forecast-title">近三天预报</view>
       <view class="forecast">
-        <view class='forecast-column'>
-          <view class="forecast-day"></view>
-          <block>
-            <view></view>
-            <view></view>
-            <view></view>
-            <view></view>
-            <view></view>
-            <view></view>
-            <view></view>
+        <view wx:for="{{days}}" wx:key="index" class='forecast-column'>
+          <view class="forecast-day">{{item}}</view>
+          <block wx:if="{{dailyWeather.length}}">
+            <view>{{dailyWeather[index].date}}</view>
+            <view>{{dailyWeather[index].condTxtD}}</view>
+            <view>
+               <image src="{{dailyWeather[index].condDIconUrl}}" class="forecast-icon" mode="aspectFit"/>
+            </view>
+            <view>{{dailyWeather[index].tmpMin}}℃~{{dailyWeather[index].tmpMax}}℃</view>
+            <view>
+              <image src="{{dailyWeather[index].condNIconUrl}}" class="forecast-icon"/>
+            </view>
+            <view>{{dailyWeather[index].condTxtN}}</view>
+            <view>{{dailyWeather[index].windDir}}</view>
+            <view>风速{{dailyWeather[index].windSc}}级</view>
           </block>
         </view>
       </view>
