@@ -67,8 +67,12 @@ Page({
     await this.getLocation()
     // 获取实时天气
     await this.getNowWeather()
+
+
     // 获取逐日天气
     await this.getDailyWeather()
+    //获取逐小时太拿起信息
+    await this.getHourlyWeather()
   },
   async getLocation() {
     let position = wx.getStorageSync('POSITION')
@@ -172,6 +176,49 @@ Page({
     }, [])
     this.setData({
       dailyWeather
+    })
+  },
+
+  getHourlyWeather() {
+    return new Promise((resolve,reject)=>{
+      api.getHourlyWeather({
+        location:this.data.location
+      }).then((res)=>{
+       let data = res.HeWeather6[0].hourly
+       this.formatHourlyWeather(data)
+       resolve()
+      }).catch(err=>{
+        console.log(err)
+        reject(err)
+      })
+    })
+  },
+
+  formatHourlyWeather(data){
+    let formatData = data.reduce((pre, cur)=>{
+      pre.push({
+        date: cur.time.split(' ')[1],
+        // condIconUrl: `${COND_ICON_BASE_URL}/${cur.cond_code}.png`, // 天气图标
+        condTxt: cur.cond_txt, // 天气状况描述
+        tmp: cur.tmp, // 气温
+        windDir: cur.wind_dir, // 风向
+        windSc: cur.wind_sc, // 风力
+        windSpd: cur.wind_spd, // 风速
+        pres: cur.pres // 大气压
+      })
+      return pre
+    },[])
+
+    let gap = 4
+    let trip = Math.ceil(formatData.length/gap) 
+      // 对一个数进行上舍入。
+      let hourlyWeather = []
+      // 
+      for(let i=0;i<trip;i++){
+        hourlyWeather.push(formatHourlyWeather.slice(i*gape,(i+1)*gape))
+      }
+    this.setData({
+      hourlyWeather
     })
   },
   onLoad() {
