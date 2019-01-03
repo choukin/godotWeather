@@ -12,7 +12,7 @@ const config = {
   // 逐日天气
   dailyWeatherUrl: `${HEWEATHER_API}/forecast`,
   // 逐小时预报
-  hourlyWeatherUrl: `${HEWEATHER_API}/hourly`,
+  hourlyWeatherUrl: `${HEWEATHER_API}/hourly`, 
   //生活指数接口
   lifestyleUrl: `${HEWEATHER_API}/lifestyle`,
   

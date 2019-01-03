@@ -231,5 +231,6 @@ module.exports = {
   getLifestyle,
   getDailyWeather,
   getCityList,
+  getHourlyWeather,
   getSuggestion
 }

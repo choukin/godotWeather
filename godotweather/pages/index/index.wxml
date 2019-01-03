@@ -41,9 +41,22 @@
 
     <view class="hourly-container">
       <view>逐三小时预报</view>
-      <swiper>
-         <block>
-         <swiper-item></swiper-item>
+      <swiper  indicator-dots="{{true}}" class="hourly" indicator-active-color="#ffffff" >
+         <block wx:for="{{hourlyWeather}}" wx:for-index="times" wx:key="times" wx:for-item="trip">
+         <swiper-item  class="hourly-swiper-item" >
+            <block wx:for="{{trip}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}"> 
+              <view  class="hourly-swiper-column">
+                <view>{{item.date}}</view>
+                 <view>{{item.condTxt}}</view>
+                 <view>
+                  <image class="forecast-icon" src="{{item.condIconUrl}}" />
+                 </view>
+                 <view>{{item.tmp}}℃</view>
+                 <view>{{item.windDir}}</view>
+                 <view>风速{{item.windSc}}级</view>
+              </view>
+            </block>
+         </swiper-item>
          </block>
       </swiper>
     </view>

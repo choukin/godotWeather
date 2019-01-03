@@ -73,6 +73,8 @@ Page({
     await this.getDailyWeather()
     //获取逐小时太拿起信息
     await this.getHourlyWeather()
+    
+    await this.getLifestyle()
   },
   async getLocation() {
     let position = wx.getStorageSync('POSITION')
@@ -219,6 +221,20 @@ Page({
       }
     this.setData({
       hourlyWeather
+    })
+  },
+
+  getLifestyle() {
+    return Promise((resolve, reject)=> {
+      api.lifestyle({
+        location: this.data.location
+      }).then(res=>{
+        let data = res.HeWeather6[0].lifestyle
+        formatLifeStyle(data)
+        resolve()
+      }).catch((err)=>{
+        reject(err)
+      })
     })
   },
   onLoad() {
